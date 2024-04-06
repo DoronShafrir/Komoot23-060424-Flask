@@ -1,0 +1,17 @@
+html{
+scroll-behavior: smooth;
+scroll-padding-top: 400px;
+}
+body {
+background-height:100%;
+background-color:#eaebc7;
+color:#6f5bd4;
+}
+
+
+#start_date{
+display:none;
+}
+#letter_error{
+display:none;
+}
