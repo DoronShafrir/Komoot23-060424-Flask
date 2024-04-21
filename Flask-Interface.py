@@ -68,10 +68,39 @@ def mainstat():
     updated_time = date_of_main()
     return render_template("main-stat.html", stat_data=stat_data.data, summary=stat_data.summary,
                            updated_time=updated_time, daily=daily)
+# End of main_stat
+
+@app.route("/show_comments", methods=["POST", "GET"])
+def show_comments():
+    global stat_data
+    if request.method == "POST":
+        week_days_options = request.form.getlist('week_days_options')[0]
+        from_when = request.form.getlist('from_when')[0]
+        start_date = request.form.getlist('date')[0]
+        print(f"status of radio buttons  week days: {week_days_options}")
+        print(f"status of radio buttons  from when: {from_when}")
+        print(f"status of start date: {start_date}")
+        conf = confirm_create([start_date], week_days_options, from_when, 'with_comments')
+        daily = 1 if week_days_options == "daily" else 0
+        stat_data = K_Analize(conf)
+        updated_time = date_of_main()
+        return render_template("show_comments.html", stat_data=stat_data.data, summary=stat_data.summary,
+                               updated_time=updated_time, daily=daily)
+    else:
+        today_gen = dt.now()
+        today_str = [f"{today_gen.year}-{today_gen.month}-{today_gen.day}"]
+        conf = confirm_create(today_str)
+        stat_data = K_Analize(conf)
+        daily = 0
+
+    updated_time = date_of_main()
+    return render_template("show_comments.html", stat_data=stat_data.data, summary=stat_data.summary,
+                           updated_time=updated_time, daily=daily)
+
 
 @app.route("/comments", methods=["POST", "GET"])
 def comments():
-    comments_data = cm.show_comments()
+    # comments_data = cm.show_comments()
     return render_template("comments.html", comments=comments_data)
 
 @app.route("/united_file", methods=["POST", "GET"])
@@ -85,15 +114,18 @@ def change_comments():
     return render_template("change_comments.html", comments=comments_data)
 
 
+
+
 #--------------this rpocedure convert the radio swiches to a configuration list------------------#
-def confirm_create(start_date , week_days_options = 'weekly', from_when = 'from_date' ):
+def confirm_create(start_date , week_days_options ='weekly', from_when='from_date', with_comments='without_comments'):
     if start_date == [""]:
         start_date = ['2023-12-10'] # pseudo date just to fill
     else:
         start_date = start_date
     conf_begin = {'weekly' : [1,0], 'daily' : [0,1]}
     conf_end = {'day_one' : [1,0,0], 'year_start' : [0,1,0] , 'from_date' : [0,0,1]}
-    conf = start_date + conf_begin[week_days_options] + conf_end[from_when]
+    conf_comments = {'without_comments': [0], 'with_comments': [1]}
+    conf = start_date + conf_begin[week_days_options] + conf_end[from_when] + conf_comments[with_comments]
     print(conf)
     return conf
 
