@@ -5,13 +5,19 @@
 {% endblock %}
 
 {% block content %}
-<form>
+<form id="changes"  method="post">
   <label for="date">Choose a date to change:</label>
   <select name="date_to_change" id="date_to_change">
        {% for date in  date_to_change %}
-    <option value="{{date}}">{{date}}</option>
-    {% endfor %}
+               <option id="date" value={{date}}>{{date}}</option>
+        {% endfor %}
   </select>
+  <label for="comment">Your comment</label>
+  <input type="text" name="comment" id="comment" placeholder="Your comments in words"/>
+  <label for="duration" >Duration</label>
+  <input type="text" name="duration" id="duration" placeholder="Duration in hours"/>
+  <label for="distance">Distance</label>
+  <input type="text" name="distance" id="distance" placeholder="Distance in Kilometers" />
   <br><br>
   <input type="submit" value="Submit">
 </form>

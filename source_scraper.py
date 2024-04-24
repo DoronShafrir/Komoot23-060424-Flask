@@ -21,8 +21,6 @@ class K_statistics():
         else: # conf 4 - from the beginning of the year
             week_start_date =  dt.strptime(f"01/01/{dt.now().year}", '%d/%m/%Y')
 
-
-
         # ------chose the first comming Sunday ----------#
         while week_start_date.weekday() != 6:
             week_start_date -= Day

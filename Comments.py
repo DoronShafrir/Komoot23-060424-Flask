@@ -4,7 +4,7 @@ from datetime import datetime as dt
 
 class Comments:
     def __init__(self):
-        self.main = pd.read_csv('main.csv', parse_dates=[1])
+       pass
 
     def fetch_comments(self):
         try:
@@ -48,13 +48,15 @@ class Comments:
         return data
 
     #------------the function gets the data to be insert into the comments.csv and save it ----------#
+    @staticmethod
+    def add_comment_to_csv(date, comment='A_Comment', duration=0, distance=0):
 
-    def add_comment_to_csv(self, date, comment = 'A_Comment', duraion=0, distance=0 ):
+        main = pd.read_csv('main.csv', parse_dates=[1])
         try:
             comments = pd.read_csv('comments.csv', parse_dates=[0])
             init_line = ['Date', 'A_Comment', 'A_Duration', 'A_Distance']
-            date = pd.to_datetime(date)
-            data_to_add = [[date, comment, duraion, distance]]
+            date = dt.strptime(date[0], "%Y-%m-%d")
+            data_to_add = [[date, comment[0], duration[0], distance[0]]]
 
             comments_line_to_add = pd.DataFrame(data_to_add, columns=init_line)
             print(comments_line_to_add)
@@ -69,7 +71,7 @@ class Comments:
             # print(comments.head(5))
             # print(self.main.head(7))
 
-            united = pd.merge(self.main, comments, on='Date', how='outer')
+            united = pd.merge(main, comments, on='Date', how='outer')
             columns_to_delete = [col for col in united.columns if col.startswith('Unnamed')]
             united.drop(columns=columns_to_delete, inplace=True)
             united.drop_duplicates(subset='Date', keep='first', inplace=True)

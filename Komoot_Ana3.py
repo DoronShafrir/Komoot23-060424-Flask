@@ -28,7 +28,7 @@ class K_Analize():
         k_stat = Stat()
         if self.conf[6]:
             try:
-                self.komoot_tours = pd.read_csv('united.csv', parse_dates=[2])
+                self.komoot_tours = pd.read_csv('united.csv', parse_dates=[0])
                 pandas_daily_table_w_comments = k_stat.detailed_rides_from_date_DF_with_comments(self.komoot_tours, self.conf)
                 data = self.print_2_screen_DF_w_comments(pandas_daily_table_w_comments)  # daily information w comments to be  present
             except IOError:

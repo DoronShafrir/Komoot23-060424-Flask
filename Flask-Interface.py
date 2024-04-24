@@ -98,16 +98,25 @@ def show_comments():
                            updated_time=updated_time, daily=daily)
 
 
-@app.route("/comments", methods=["POST", "GET"])
-def comments():
-    # comments_data = cm.show_comments()
-    return render_template("comments.html", comments=comments_data)
+# @app.route("/comments", methods=["POST", "GET"])
+# def comments():
+#     # comments_data = cm.show_comments()
+#     return render_template("comments.html", comments=comments_data)
 
 @app.route("/change_comments", methods=["POST", "GET"])
 def change_comments():
-    comments_data = "nothing yet"
-    date_to_change =cm.get_list_of_dates_to_change()
-    return render_template("change_comments.html", comments=comments_data, date_to_change=date_to_change)
+    date_to_change = cm.get_list_of_dates_to_change()
+    if request.method == "POST":
+
+        preferred_date = request.form.getlist('date_to_change')
+        comment_to_change = request.form.getlist('comment')
+        duration_to_change = request.form.getlist('duration')
+        distance_to_change = request.form.getlist('distance')
+        # print(preferred_date , comment_to_change, duration_to_change, distance_to_change)
+
+        cm.add_comment_to_csv(preferred_date, comment_to_change, duration_to_change, distance_to_change)
+
+    return render_template("change_comments.html", date_to_change=date_to_change)
 
 
 
