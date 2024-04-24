@@ -1,10 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "master.html" %}
+{% block title %}
+<link href="{{ url_for('static', filename='CSS/Comments.css')}}" rel="stylesheet"/>
+<script src="{{ url_for('static', filename='JS/Script.js')}}"></script>
+{% endblock %}
 
-</body>
-</html>
+{% block content %}
+<form>
+  <label for="date">Choose a date to change:</label>
+  <select name="date_to_change" id="date_to_change">
+       {% for date in  date_to_change %}
+    <option value="{{date}}">{{date}}</option>
+    {% endfor %}
+  </select>
+  <br><br>
+  <input type="submit" value="Submit">
+</form>
+
+{% endblock %}

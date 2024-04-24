@@ -103,15 +103,11 @@ def comments():
     # comments_data = cm.show_comments()
     return render_template("comments.html", comments=comments_data)
 
-@app.route("/united_file", methods=["POST", "GET"])
-def united_file():
-    comments_data = "nothing yet"
-    return render_template("united_file.html", comments=comments_data)
-
 @app.route("/change_comments", methods=["POST", "GET"])
 def change_comments():
     comments_data = "nothing yet"
-    return render_template("change_comments.html", comments=comments_data)
+    date_to_change =cm.get_list_of_dates_to_change()
+    return render_template("change_comments.html", comments=comments_data, date_to_change=date_to_change)
 
 
 

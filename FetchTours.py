@@ -108,7 +108,7 @@ class API:
         params["page"] = 0
         ex_count = 1
                # ----------pandas firle creation ------------------------------#
-        init_line = ['Date', 'Name', 'Duration', 'Distance', 'Speed', 'UpHill', 'DownHill']
+        init_line = ['Date', 'Name', 'Duration', 'Distance', 'Speed', 'UpHill', 'DownHill', 'type']
         komoot_tours = pd.DataFrame(columns=init_line)
         while True:
 
@@ -121,6 +121,7 @@ class API:
                 break
 
             content = resp.json()
+            # print(content)
             if (content["page"]["totalElements"] == 0):
                 break
 
@@ -128,6 +129,7 @@ class API:
                 date = data['date'][:10]
                 name = data['name']
                 distance = data['distance']
+                type = data['type']
                 try:
                     duration = data['time_in_motion']/3600
                     speed = round((distance / duration)/1000 , 1)
@@ -138,13 +140,14 @@ class API:
                 distance = round(distance / 1000, 2)
                 upHill = int(data['elevation_up'])
                 downHill = int(data['elevation_down'])
-                # print(f"{ex_count}  {date}  {name}     {duration}  {distance} {speed}  {upHill} {downHill}" )
+                #print(f"{ex_count}  {date}  {name}  {duration}  {distance} {speed}  {upHill} {downHill} {type}" )
 
                 ex_count += 1
                 #-----------add line to komoot_tours---------------------------#
 
-                line = pd.DataFrame([[date, name, duration, distance, speed, upHill, downHill]], columns=init_line)
-                komoot_tours = komoot_tours.append(line, ignore_index=True)
+                line = pd.DataFrame([[date, name, duration, distance, speed, upHill, downHill, type]], columns=init_line)
+                if type == "tour_recorded" :
+                    komoot_tours = komoot_tours.append(line, ignore_index=True)
 
             params["page"] += 1
             if (content["page"]["totalPages"] == params["page"]):

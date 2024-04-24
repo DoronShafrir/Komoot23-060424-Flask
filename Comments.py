@@ -4,7 +4,7 @@ from datetime import datetime as dt
 
 class Comments:
     def __init__(self):
-        self.main = pd.read_csv('main.csv')
+        self.main = pd.read_csv('main.csv', parse_dates=[1])
 
     def fetch_comments(self):
         try:
@@ -51,26 +51,41 @@ class Comments:
 
     def add_comment_to_csv(self, date, comment = 'A_Comment', duraion=0, distance=0 ):
         try:
-            comments = pd.read_csv('comments.csv')
-
-            init_line = ['Date', 'A_Comment', duraion, distance]
-            data_to_add = [[date, comment, 0, 0]]
+            comments = pd.read_csv('comments.csv', parse_dates=[0])
+            init_line = ['Date', 'A_Comment', 'A_Duration', 'A_Distance']
+            date = pd.to_datetime(date)
+            data_to_add = [[date, comment, duraion, distance]]
 
             comments_line_to_add = pd.DataFrame(data_to_add, columns=init_line)
             print(comments_line_to_add)
-            # print(self.main.head(7))
-            comments_line_to_add = comments_line_to_add.reset_index()
-            comments = comments.reset_index()
-            comments = pd.concat([comments_line_to_add, comments], ignore_index=True)
-            comments.to_csv('comments.csv')
+
+            comments = pd.concat([comments, comments_line_to_add], ignore_index=False, axis=0)
+            comments.drop_duplicates(subset='Date', keep='last', inplace=True)
+            comments.to_csv('comments.csv', index=False)
         except IOError:
             raise Comments("file does not exist")
 
         finally:
-            print(comments.head(5))
-            print(self.main.head(7))
+            # print(comments.head(5))
+            # print(self.main.head(7))
+
             united = pd.merge(self.main, comments, on='Date', how='outer')
-            united.to_csv('united.csv')
+            columns_to_delete = [col for col in united.columns if col.startswith('Unnamed')]
+            united.drop(columns=columns_to_delete, inplace=True)
+            united.drop_duplicates(subset='Date', keep='first', inplace=True)
+            united.to_csv('united.csv', index=False)
+
+    @staticmethod
+    def get_list_of_dates_to_change():
+        try:
+            main = pd.read_csv('main.csv')
+            dates_list = main['Date'].tolist()
+            return dates_list
+        except IOError:
+            raise Exception("Main is not exist")
+
+
+
 
 
 
@@ -78,4 +93,5 @@ class Comments:
 if __name__ == '__main__':
     get_comments = Comments()
     # get_comments.fetch_comments()
-    get_comments.add_comment_to_csv('2022-04-18', 'Cycling with MTesting', 0, 0)
+    # get_comments.add_comment_to_csv('2024-04-18', 'Cycling with MT8', 3, 100)
+    get_comments.get_list_of_dates_to_change()
