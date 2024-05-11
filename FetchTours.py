@@ -147,7 +147,8 @@ class API:
 
                 line = pd.DataFrame([[date, name, duration, distance, speed, upHill, downHill, type]], columns=init_line)
                 if type == "tour_recorded" :
-                    komoot_tours = komoot_tours.append(line, ignore_index=True)
+                    # komoot_tours = komoot_tours.append(line, ignore_index=True)
+                    komoot_tours = pd.concat([komoot_tours, line], ignore_index=True)
 
             params["page"] += 1
             if (content["page"]["totalPages"] == params["page"]):

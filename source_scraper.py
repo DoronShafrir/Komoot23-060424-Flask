@@ -28,10 +28,13 @@ class K_statistics():
         while week_start_date <= last_date:
             weekly_activities = df[(df['Date'] >= week_start_date) & (df['Date'] < (week_start_date + DAYS))]
 
-            weekly_rides = weekly_rides.append(
-                {'Date': week_start_date, 'Distance': weekly_activities.Distance.sum(),
-                 'Duration': weekly_activities.Duration.sum(), 'Count': weekly_activities.Distance.count()},
-                ignore_index=True)
+            # weekly_rides = weekly_rides.append(
+            #     {'Date': week_start_date, 'Distance': weekly_activities.Distance.sum(),
+            #      'Duration': weekly_activities.Duration.sum(), 'Count': weekly_activities.Distance.count()},
+            #     ignore_index=True)
+            weekly_line = pd.DataFrame({'Date': week_start_date, 'Distance': weekly_activities.Distance.sum(),'Duration': weekly_activities.Duration.sum(),
+                                        'Count': weekly_activities.Distance.count()},  index=[week_start_date])
+            weekly_rides = pd.concat([weekly_rides, weekly_line])
 
             week_start_date += DAYS
 
@@ -52,8 +55,10 @@ class K_statistics():
         while start_date <= last_date:
             daily_activitis = df[df['Date'] == start_date]
 
-            activitis_to_add = pd.DataFrame({'Date': daily_activitis['Date'], 'Distance': daily_activitis['Distance'],'Duration': daily_activitis['Duration'], 'Count': 1})
-            detailed_rides = detailed_rides.append(activitis_to_add, ignore_index=True)
+            activitis_to_add = pd.DataFrame({'Date': daily_activitis['Date'], 'Distance': daily_activitis['Distance'],
+                                             'Duration': daily_activitis['Duration'], 'Count': 1},  index=None)
+            # detailed_rides = detailed_rides.append(activitis_to_add, ignore_index=True)
+            detailed_rides = pd.concat([detailed_rides, activitis_to_add], ignore_index=True)
 
             start_date += Day
         return detailed_rides
@@ -74,9 +79,11 @@ class K_statistics():
             daily_activitis = df[df['Date'] == start_date]
 
             activitis_to_add = pd.DataFrame({'Date': daily_activitis['Date'], 'Distance': daily_activitis['Distance'],'Duration': daily_activitis['Duration'],
-                                             'A_Comment':daily_activitis['A_Comment'], 'A_Duration':daily_activitis['A_Duration'], 'A_Distance': daily_activitis['A_Duration'], 'Count': 1})
+                                             'A_Comment':daily_activitis['A_Comment'], 'A_Duration':daily_activitis['A_Duration'], 'A_Distance': daily_activitis['A_Duration'],
+                                             'Count': 1})
 
-            detailed_rides = detailed_rides.append(activitis_to_add, ignore_index=True)
+            # detailed_rides = detailed_rides.append(activitis_to_add, ignore_index=True)
+            detailed_rides = pd.concat([detailed_rides, activitis_to_add], ignore_index=True)
 
             start_date += Day
         return detailed_rides
