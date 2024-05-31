@@ -1,0 +1,32 @@
+body,
+html {
+  height: 100%;
+  margin: 0;
+}
+#grid-container {
+  display: flex;
+  grid-template-columns: 10%, 10%, 10%, 10%, 10%, 10%, 10%, 10%;
+}
+
+.grid_item {
+  font-size: larger;
+  width: 100px;
+}
+#grid_item1 {
+  background-color: aqua;
+}
+#grid_item2 {
+  background-color: rgb(255, 0, 38);
+}
+#grid_item3 {
+  background-color: rgb(225, 255, 0);
+}
+#grid_item4 {
+  background-color: rgb(106, 0, 255);
+}
+#grid_item5 {
+  background-color: rgb(17, 255, 0);
+}
+#grid_item6 {
+  background-color: rgb(55, 29, 11);
+}

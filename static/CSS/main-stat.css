@@ -1,44 +1,44 @@
-html{
-scroll-behavior: smooth;
-scroll-padding-top: 400px;
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 400px;
 }
 body {
-background-height:100%;
-background-color:#eaebc7;
-color:#6f5bd4;
+  background-height: 100%;
+  background-color: #eaebc7;
+  color: #6f5bd4;
+  margin-left: 1%;
 }
 
-.main-table{
-text-align: center
-position:fix;
-scroll-padding-top: 400px;
-
+.main-table {
+  text-align: center;
+  position: fix;
+  scroll-padding-top: 400px;
+  margin-left: 20%;
 }
 td {
-width:200px;
+  width: 200px;
 }
 table#main-table tr:nth-child(even) {
-    background-color: #dddddd;
+  background-color: #dddddd;
 }
 
 #options {
-display:flex;
-flex-direction:row;
-    padding:10px;
-    border: 2px solid black;
-    width:730px;
-    gap:10px;
-
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  border: 2px solid black;
+  width: 730px;
+  gap: 10px;
 }
 .week_days_options {
-    border:1px solid #8b0b10;
-    padding:5px;
-    width:180px;
+  border: 1px solid #8b0b10;
+  padding: 5px;
+  width: 250px;
 }
 .from_when {
-    border:1px solid #8b0b10;
-    padding:5px;
-    width:400px%;
+  border: 1px solid #8b0b10;
+  padding: 5px;
+  width: 500px;
 }
 
 .split {
@@ -53,38 +53,39 @@ flex-direction:row;
 
 .left {
   left: 0;
-
 }
 
 .right {
   right: 0;
 }
-.right-content, .left-content{
-margin-top:15%;
+.right-content,
+.left-content {
+  margin-top: 15%;
 }
-.table{
-        text-align : center;
+.table {
+  text-align: center;
 }
-#summary-table{
-    border: 1px solid #8b0b10;
-    text-align: 20%;
-    padding: 8px;
-    margin-left:center;
-    border-collapse: collapse;
-    margin-left:15%;
+#summary-table {
+  border: 1px solid #8b0b10;
+  text-align: 20%;
+  padding: 8px;
+  margin-left: center;
+  border-collapse: collapse;
+  margin-left: 15%;
 }
-#summary-table th, #summary-table td {
-padding: 10px;
-border: 1px solid #8b0b10;
+#summary-table th,
+#summary-table td {
+  padding: 10px;
+  border: 1px solid #8b0b10;
 }
 #summary-table td {
-color: green;
-font-weight: bold;
+  color: green;
+  font-weight: bold;
 }
 
-#start_date{
-display:none;
+#start_date {
+  display: none;
 }
-#letter_error{
-display:none;
+#letter_error {
+  display: none;
 }
