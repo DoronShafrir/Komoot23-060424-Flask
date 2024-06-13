@@ -1,6 +1,7 @@
 {% extends "master.html" %}
 {% block title %}
 <link href="{{ url_for('static', filename='CSS/home.css')}}" rel="stylesheet"/>
+<link href="{{ url_for('static', filename='CSS/decoration.css')}}" rel="stylesheet"/>
 <script src="{{ url_for('static', filename='JS/Script.js')}}"></script>
 {% endblock %}
 
@@ -11,7 +12,7 @@
     <h2>Last time of updated from Komoot: {{updated_time}}</h2>
     <div id="grid-container">
         <div id="main">
-            <form action="#" method="post">
+            <form action="#" method="post" id="myForm">
                 <p>E-Mail:</p>
                 <p><input type="email" name="email" placeholder="your email" onkeyup="checkName(this, 'msgMailCheck')"/>
                     <span id="msgMailCheck" class="warning"></span></p></p>
@@ -19,9 +20,12 @@
                 <p><input type="password" name="password" placeholder="your password"
                           onkeyup="checkName(this,'msgPassCheck')"/>
                     <span id="msgPassCheck" class="warning"></span></p>
-                <p><input type="submit" value="submit" onclick="return check_warning()"/>
+                <p><input type="submit" value="submit" id="act_loader"  onclick="return check_warning()"/>
                     <span id="letter_error" style="color:red;">fix errors in name and password</span></p>
             </form>
+<!-----------------------rotating circle------------->
+
+            <div id="loader" ></div>
 
 
             {% with messages = get_flashed_messages() %}
@@ -40,4 +44,15 @@
         </div>
     </div>
 </div>
+<script>
+    const loader = document.getElementById("loader")
+    const myForm = document.getElementById("myForm") ;
+    myForm.addEventListener("submit", showCircle, false);
+
+    function showCircle(event){
+<!--    event.preventDefault();-->
+    loader.style.display = "block";
+    }
+
+</script>
 {% endblock %}

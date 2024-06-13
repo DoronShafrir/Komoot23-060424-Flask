@@ -1,5 +1,11 @@
 // javascript file for Komoot Stat program
 
+
+//const act_loader = document.getElementById("act_loader") ;
+//act_loader.addEventListener("click", function(){
+//    document.getElementById("loader").display = "block";
+//})
+
 // function checkName - cehck and warn once the letters in the name and password not in English
 function checkName(e, msgBack) {
     const reg = /^[a-zA-Z0-9\@.]+$/;

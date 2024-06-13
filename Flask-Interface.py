@@ -20,14 +20,17 @@ def home():
     global komoot_password
     global stat_data
     print(f"the request method is {request.method}")
-    display_status="none"
+    display_status = "none"
+
     if request.method == "POST":
 
         komoot_email = request.form["email"]
         komoot_password = request.form["password"]
         print(f"email: {komoot_email}, password: {komoot_password}")
         get_list = API()
+
         approved = get_list.login(komoot_email, komoot_password)
+
 
         print(f"approved: {approved}")
 
@@ -74,7 +77,7 @@ def mainstat():
 def show_comments():
     global stat_data
     if request.method == "POST":
-        week_days_options = request.form.getlist('week_days_options')[0]
+        week_days_options = 'daily'
         from_when = request.form.getlist('from_when')[0]
         start_date = request.form.getlist('date')[0]
         print(f"status of radio buttons  week days: {week_days_options}")
@@ -98,10 +101,7 @@ def show_comments():
                            updated_time=updated_time, daily=daily)
 
 
-# @app.route("/comments", methods=["POST", "GET"])
-# def comments():
-#     # comments_data = cm.show_comments()
-#     return render_template("comments.html", comments=comments_data)
+
 
 @app.route("/change_comments", methods=["POST", "GET"])
 def change_comments():
@@ -112,7 +112,7 @@ def change_comments():
         comment_to_change = request.form.getlist('comment')
         duration_to_change = request.form.getlist('duration')
         distance_to_change = request.form.getlist('distance')
-        # print(preferred_date , comment_to_change, duration_to_change, distance_to_change)
+        print(f"date_to_change  = {preferred_date}, comment = {comment_to_change},\n  duration = {duration_to_change}, distance ={distance_to_change}")
 
         cm.add_comment_to_csv(preferred_date, comment_to_change, duration_to_change, distance_to_change)
 

@@ -3,6 +3,7 @@
 import pandas as pd
 from source_scraper import K_statistics as Stat
 from datetime import datetime as dt
+from Comments import Comments
 
 class K_Analize():
     def __init__(self, conf):
@@ -27,8 +28,9 @@ class K_Analize():
     def fill_data(self):
         k_stat = Stat()
         if self.conf[6]:
+            Comments.merge_comments(self)
             try:
-                self.komoot_tours = pd.read_csv('united.csv', parse_dates=[0])
+                self.komoot_tours = pd.read_csv('united.csv', parse_dates=[1])
                 pandas_daily_table_w_comments = k_stat.detailed_rides_from_date_DF_with_comments(self.komoot_tours, self.conf)
                 data = self.print_2_screen_DF_w_comments(pandas_daily_table_w_comments)  # daily information w comments to be  present
             except IOError:

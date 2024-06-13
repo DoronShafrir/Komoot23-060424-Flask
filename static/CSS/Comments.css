@@ -3,7 +3,7 @@ html {
   scroll-padding-top: 400px;
 }
 body {
-  background-height: 100%;
+  background-position-y: 100%;
   background-color: #eaebc7;
   color: #6f5bd4;
   margin-left: 1%;
@@ -14,10 +14,6 @@ body {
 }
 
 .comments-table {
-  text-align: center;
-  position: fix;
-  scroll-padding-top: 400px;
-  margin-left: 1%;
 }
 td,
 th {
@@ -28,8 +24,33 @@ th {
   text-align: left;
   width: 500px;
 }
+.container {
+  /* border: 2px violet solid; */
+  position: fixed;
+  overflow: auto;
+  margin-top: 1%;
+  padding: 1%;
+  width: 50%;
+  height: 65%;
+}
 table#comments-table tr:nth-child(even) {
   background-color: #dddddd;
+}
+table#comments-table {
+  scrollbar-width: 20px;
+  text-align: center;
+  margin-left: 1%;
+  /* height: 100%; Take full height of the fixed container */
+  overflow-y: scroll;
+  position: absolute;
+}
+tr th {
+  position: sticky;
+  z-index: 1;
+  color: rgb(63, 5, 84);
+  margin-bottom: 3px;
+  padding: 3px;
+  font-weight: 900;
 }
 
 #options {
