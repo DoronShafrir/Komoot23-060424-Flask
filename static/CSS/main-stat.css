@@ -18,9 +18,27 @@ body {
 td {
   width: 200px;
 }
+.container {
+  /* border: 2px violet solid; */
+  position: fixed;
+  overflow: auto;
+  margin-top: 1%;
+  padding: 1%;
+  width: 50%;
+  height: 65%;
+}
 table#main-table tr:nth-child(even) {
   background-color: #dddddd;
 }
+table#main-table {
+  scrollbar-width: 20px;
+  text-align: center;
+  margin-left: 1%;
+  /* height: 100%; Take full height of the fixed container */
+  overflow-y: scroll;
+  position: absolute;
+}
+
 
 #options {
   display: flex;

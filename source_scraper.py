@@ -11,7 +11,7 @@ class K_statistics():
 
     # ---------This sub seperate the time duration of the rides to seperate weeks DF-----------#
     def weekly_rides_seperator_DF(self, df, conf):
-        weekly_rides = pd.DataFrame(columns=['Date', 'Distance', 'Duration', 'Count'])
+        weekly_rides = pd.DataFrame(columns=['Date', 'Distance', 'Duration', 'UpHill','Count'])
         DAYS = timedelta(7)  # week
         Day = timedelta(1)  # one day
         if conf[5]: # start on certain date
@@ -33,7 +33,7 @@ class K_statistics():
             #      'Duration': weekly_activities.Duration.sum(), 'Count': weekly_activities.Distance.count()},
             #     ignore_index=True)
             weekly_line = pd.DataFrame({'Date': week_start_date, 'Distance': weekly_activities.Distance.sum(),'Duration': weekly_activities.Duration.sum(),
-                                        'Count': weekly_activities.Distance.count()},  index=[week_start_date])
+                                        'UpHill': weekly_activities.UpHill.sum(), 'Count': weekly_activities.Distance.count()},  index=[week_start_date])
             weekly_rides = pd.concat([weekly_rides, weekly_line])
 
             week_start_date += DAYS
@@ -42,7 +42,7 @@ class K_statistics():
 
     # ---------This sub initiate the time duration of the rides from a start date DF-----------#
     def detailed_rides_from_date_DF(self, df, conf):
-        detailed_rides = pd.DataFrame(columns=['Date', 'Distance', 'Duration', 'Count'])
+        detailed_rides = pd.DataFrame(columns=['Date', 'Distance', 'Duration', 'UpHill', 'Count'])
         Day = timedelta(1)
 
         if conf[5]:  # start on certain date
@@ -56,7 +56,7 @@ class K_statistics():
             daily_activitis = df[df['Date'] == start_date]
 
             activitis_to_add = pd.DataFrame({'Date': daily_activitis['Date'], 'Distance': daily_activitis['Distance'],
-                                             'Duration': daily_activitis['Duration'], 'Count': 1},  index=None)
+                                             'Duration': daily_activitis['Duration'], 'UpHill': daily_activitis['UpHill'], 'Count': 1 },  index=None)
             detailed_rides = pd.concat([detailed_rides, activitis_to_add], ignore_index=True)
 
             start_date += Day

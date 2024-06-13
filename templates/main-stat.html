@@ -42,12 +42,14 @@
 
 
         </div>
-        <div class="table">
+        <div class="container">
+<!--        <div class="table">-->
             <table id="main-table">
                 <tr>
                     <th id="weekly_daily_header"></th>
                     <th>Duration</th>
                     <th>Distance</th>
+                    <th>UpHill</th>
                     <th>Number of rides</th>
                 </tr>
 
@@ -58,6 +60,7 @@
                     <td>{{record[1]}}</td>
                     <td>{{record[2]}}</td>
                     <td>{{record[3]}}</td>
+                    <td>{{record[4]}}</td>
                 </tr>
                 {% endfor %}
             </table>
@@ -81,7 +84,7 @@
                     <td>{{summary[2]}}</td>
                 </tr>
             </table>
-        </div>
+<!--        </div>-->
     </div>
 </div>
 <script>

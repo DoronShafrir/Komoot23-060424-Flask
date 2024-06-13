@@ -59,6 +59,7 @@ class K_Analize():
             line.append(str(s_list.Date.iloc[n])[:10])
             line.append(str(round((s_list.Duration.iloc[n]),2)))
             line.append(str(round((s_list.Distance.iloc[n]),2)))
+            line.append(str(round((s_list.UpHill.iloc[n]),2)))
             line.append(str(round((s_list.Count.iloc[n]), 2)))
             data.append(line)
 
